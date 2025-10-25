@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>넛지 AI - 바쁜 부모님을 대신하는 AI 케어 서비스</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(138, 116, 249, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .brand {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8a74f9;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #fff 0%, #8a74f9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            max-width: 1000px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #b4b4b4;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            line-height: 1.8;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 80px;
+            color: #fff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(26, 26, 46, 0.5);
+            border: 1px solid rgba(138, 116, 249, 0.2);
+            border-radius: 20px;
+            padding: 50px 40px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #8a74f9, #6c5ce7);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(138, 116, 249, 0.5);
+            box-shadow: 0 20px 40px rgba(138, 116, 249, 0.2);
+        }
+
+        .feature-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #8a74f9;
+        }
+
+        .feature-description {
+            font-size: 1.1rem;
+            color: #b4b4b4;
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0a 100%);
+        }
+
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: #b4b4b4;
+            margin-bottom: 50px;
+        }
+
+        /* Contact Type Selection */
+        .contact-selection {
+            margin-bottom: 30px;
+        }
+
+        .contact-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-option {
+            flex: 1;
+            max-width: 200px;
+            padding: 15px 30px;
+            background: rgba(26, 26, 46, 0.5);
+            border: 2px solid rgba(138, 116, 249, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #b4b4b4;
+        }
+
+        .contact-option:hover {
+            border-color: #8a74f9;
+            color: #fff;
+        }
+
+        .contact-option.selected {
+            background: rgba(138, 116, 249, 0.2);
+            border-color: #8a74f9;
+            color: #8a74f9;
+        }
+
+        .contact-option input {
+            display: none;
+        }
+
+        /* Input Section */
+        .input-section {
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .input-section.show {
+            display: block;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .input-field {
+            flex: 1;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 18px 25px;
+            background: rgba(26, 26, 46, 0.5);
+            border: 2px solid rgba(138, 116, 249, 0.3);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #8a74f9;
+            background: rgba(26, 26, 46, 0.8);
+        }
+
+        .input-field input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .input-field input::placeholder {
+            color: #666;
+        }
+
+        .confirm-btn {
+            padding: 18px 35px;
+            background: #8a74f9;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .confirm-btn:hover {
+            background: #6c5ce7;
+            transform: translateY(-2px);
+        }
+
+        .confirm-btn.edit-mode {
+            background: #555;
+        }
+
+        .confirm-btn.edit-mode:hover {
+            background: #666;
+        }
+
+        .contact-confirmed {
+            display: none;
+            margin-top: 10px;
+            color: #4ecdc4;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .contact-confirmed.show {
+            display: block;
+        }
+
+        .input-warning {
+            display: none;
+            margin-top: 10px;
+            color: #ff6b6b;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .input-warning.show {
+            display: block;
+        }
+
+        /* Plan Selection */
+        .plan-selection {
+            margin-bottom: 40px;
+        }
+
+        .plan-options {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .plan-card {
+            flex: 1;
+            max-width: 250px;
+            padding: 30px;
+            background: rgba(26, 26, 46, 0.5);
+            border: 2px solid rgba(138, 116, 249, 0.3);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .plan-card:hover {
+            border-color: #8a74f9;
+            transform: translateY(-5px);
+        }
+
+        .plan-card.selected {
+            background: rgba(138, 116, 249, 0.2);
+            border-color: #8a74f9;
+            border-width: 3px;
+        }
+
+        .plan-card input {
+            display: none;
+        }
+
+        .plan-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #8a74f9;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #b4b4b4;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, #8a74f9 0%, #6c5ce7 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(138, 116, 249, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .privacy-notice {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #888;
+            line-height: 1.6;
+        }
+
+        .error-message {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 67, 54, 0.1);
+            border: 1px solid rgba(255, 67, 54, 0.3);
+            border-radius: 10px;
+            color: #ff4336;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Floating Button */
+        .floating-btn {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #8a74f9 0%, #6c5ce7 100%);
+            color: #fff;
+            box-shadow: 0 -4px 20px rgba(138, 116, 249, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .floating-btn:hover {
+            background: linear-gradient(135deg, #9d84ff 0%, #7d6ce7 100%);
+            box-shadow: 0 -6px 30px rgba(138, 116, 249, 0.7);
+        }
+
+        .floating-btn-icon {
+            font-size: 1.5rem;
+        }
+
+        .floating-btn-text {
+            white-space: nowrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .floating-btn {
+                padding: 18px;
+                font-size: 1.1rem;
+            }
+
+            .floating-btn-icon {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-options,
+            .plan-options {
+                flex-direction: column;
+            }
+
+            .contact-option,
+            .plan-card {
+                max-width: 100%;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .confirm-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="brand">넛지 AI</div>
+            <h1 class="hero-title">'숙제했어? 게임 그만해, 지금 어디야?'<br>매일 회사에서도 걱정되시나요?</h1>
+            <p class="hero-subtitle">부모님이 24시간 아이 곁에 있어줄 수는 없지만, 넛지 AI가 부모님을 대신해 아이에게 직접 전화로 케어합니다.</p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">넛지 AI가 해결합니다</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-emoji">📍</span>
+                    <h3 class="feature-title">아이 위치추적 앱, 이제는 넛지로 시작하세요</h3>
+                    <p class="feature-description">부모님이 직접 매번 확인하지 않아도 아이가 비정상적인 움직임이나 원래 가야 할 곳에 안 간다면 AI가 직접 전화해서 물어보고 부모님께 알려드려요.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-emoji">📖</span>
+                    <h3 class="feature-title">"엄마가 확인 안 해도 숙제 다 했어!"</h3>
+                    <p class="feature-description">AI가 매일 저녁 5시에 숙제 확인 전화를 하고 잘 할수 있도록 격려까지 해주니까 아이가 스스로 챙기게 됐어요. 부모님은 잔소리 대신 "오늘 하루 어땠어?"라고 물어보세요.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-emoji">🎮</span>
+                    <h3 class="feature-title">게임, 특정앱 강제 차단 기능 - 이제는 더이상 싸우지 마세요</h3>
+                    <p class="feature-description">넛지 AI는 부모님과 약속한 시간에 잠금,차단기능을 제공하기전 아이에게 전화해 부드럽게 설득하고 부모님이 없어도 아이 스스로 약속을 지키고 올바른 습관을 기를수 있도록 해줘요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta-section">
+        <div class="container">
+            <div class="cta-container">
+                <h2 class="cta-title">서비스 출시 알림 받기</h2>
+                <p class="cta-subtitle">서비스 출시할 때 소식을 알려드려요.<br>연락드릴 휴대폰·이메일 둘 중 하나를 선택해주세요.</p>
+
+                <form id="signupForm">
+                    <!-- Contact Type Selection -->
+                    <div class="contact-selection">
+                        <div class="contact-options">
+                            <label class="contact-option" for="contact-email">
+                                <input type="radio" name="contactType" id="contact-email" value="이메일">
+                                📧 이메일
+                            </label>
+                            
+                            <label class="contact-option" for="contact-phone">
+                                <input type="radio" name="contactType" id="contact-phone" value="휴대폰">
+                                📱 휴대폰
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="input-section" id="emailInputSection">
+                        <div class="input-group">
+                            <div class="input-field">
+                                <input type="email" id="email" placeholder="이메일 주소를 입력하세요">
+                            </div>
+                            <button type="button" class="confirm-btn" id="confirmEmailBtn">확인</button>
+                        </div>
+                        <div class="input-warning" id="emailWarning">⚠️ 올바른 이메일 주소를 입력해주세요.</div>
+                        <div class="contact-confirmed" id="emailConfirmed">✓ 이메일 작성완료</div>
+                    </div>
+
+                    <!-- Phone Input -->
+                    <div class="input-section" id="phoneInputSection">
+                        <div class="input-group">
+                            <div class="input-field">
+                                <input type="tel" id="phone" placeholder="휴대폰 번호를 입력하세요 (010-1234-5678)">
+                            </div>
+                            <button type="button" class="confirm-btn" id="confirmPhoneBtn">확인</button>
+                        </div>
+                        <div class="input-warning" id="phoneWarning">⚠️ 휴대폰 번호를 입력해주세요.</div>
+                        <div class="contact-confirmed" id="phoneConfirmed">✓ 휴대폰번호 작성완료</div>
+                    </div>
+
+                    <!-- Plan Selection -->
+                    <div class="plan-selection">
+                        <div class="plan-options">
+                            <label class="plan-card" for="free-plan">
+                                <input type="radio" name="plan" id="free-plan" value="무료">
+                                <div class="plan-name">무료 플랜</div>
+                                <div class="plan-price">₩0</div>
+                            </label>
+                            
+                            <label class="plan-card" for="paid-plan">
+                                <input type="radio" name="plan" id="paid-plan" value="유료">
+                                <div class="plan-name">프리미엄</div>
+                                <div class="plan-price">₩10,000<span>/월</span></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">사전 등록하기</button>
+
+                    <p class="privacy-notice">🔒 수집한 연락처는 저희가 연락을 드릴 용도로만 사용되고<br>다른 목적으로는 절대 이용되지 않아요.</p>
+
+                    <div class="error-message" id="errorMessage">
+                        ❌ 등록 중 오류가 발생했습니다. 다시 시도해주세요.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Button -->
+    <a href="#signupForm" class="floating-btn">
+        <span class="floating-btn-icon">📝</span>
+        <span class="floating-btn-text">사전등록 하러가기</span>
+    </a>
+
+    <script>
+        let contactConfirmed = false;
+
+        const emailInputSection = document.getElementById('emailInputSection');
+        const phoneInputSection = document.getElementById('phoneInputSection');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+        const emailConfirmed = document.getElementById('emailConfirmed');
+        const phoneConfirmed = document.getElementById('phoneConfirmed');
+        const emailWarning = document.getElementById('emailWarning');
+        const phoneWarning = document.getElementById('phoneWarning');
+
+        // Contact type selection
+        document.querySelectorAll('input[name="contactType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                contactConfirmed = false;
+                emailConfirmed.classList.remove('show');
+                phoneConfirmed.classList.remove('show');
+                emailWarning.classList.remove('show');
+                phoneWarning.classList.remove('show');
+                
+                document.querySelectorAll('.contact-option').forEach(opt => opt.classList.remove('selected'));
+                this.parentElement.classList.add('selected');
+
+                if (this.value === '이메일') {
+                    emailInputSection.classList.add('show');
+                    phoneInputSection.classList.remove('show');
+                    emailInput.value = '';
+                    phoneInput.value = '';
+                } else {
+                    phoneInputSection.classList.add('show');
+                    emailInputSection.classList.remove('show');
+                    phoneInput.value = '';
+                    emailInput.value = '';
+                }
+            });
+        });
+
+        // Email confirmation
+        document.getElementById('confirmEmailBtn').addEventListener('click', function() {
+            const email = emailInput.value.trim();
+            
+            if (this.classList.contains('edit-mode')) {
+                emailInput.disabled = false;
+                emailInput.focus();
+                emailConfirmed.classList.remove('show');
+                emailWarning.classList.remove('show');
+                this.textContent = '확인';
+                this.classList.remove('edit-mode');
+                contactConfirmed = false;
+                return;
+            }
+            
+            if (email && emailInput.checkValidity()) {
+                emailConfirmed.classList.add('show');
+                emailWarning.classList.remove('show');
+                contactConfirmed = true;
+                emailInput.disabled = true;
+                this.textContent = '수정하기';
+                this.classList.add('edit-mode');
+            } else {
+                emailWarning.classList.add('show');
+                emailConfirmed.classList.remove('show');
+            }
+        });
+
+        // Phone confirmation
+        document.getElementById('confirmPhoneBtn').addEventListener('click', function() {
+            const phone = phoneInput.value.trim();
+            
+            if (this.classList.contains('edit-mode')) {
+                phoneInput.disabled = false;
+                phoneInput.focus();
+                phoneConfirmed.classList.remove('show');
+                phoneWarning.classList.remove('show');
+                this.textContent = '확인';
+                this.classList.remove('edit-mode');
+                contactConfirmed = false;
+                return;
+            }
+            
+            if (phone) {
+                phoneConfirmed.classList.add('show');
+                phoneWarning.classList.remove('show');
+                contactConfirmed = true;
+                phoneInput.disabled = true;
+                this.textContent = '수정하기';
+                this.classList.add('edit-mode');
+            } else {
+                phoneWarning.classList.add('show');
+                phoneConfirmed.classList.remove('show');
+            }
+        });
+
+        // Plan selection
+        document.querySelectorAll('.plan-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!contactConfirmed) {
+                alert('연락처를 입력하고 확인 버튼을 눌러주세요.');
+                return;
+            }
+
+            if (!document.querySelector('input[name="plan"]:checked')) {
+                alert('플랜을 선택해주세요.');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '등록 중...';
+            errorMessage.classList.remove('show');
+            
+            const contactType = document.querySelector('input[name="contactType"]:checked').value;
+            const contactValue = contactType === '이메일' ? emailInput.value : phoneInput.value;
+
+            const formData = {
+                연락방법: contactType,
+                연락처: contactValue,
+                선택플랜: document.querySelector('input[name="plan"]:checked').value,
+                등록시간: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
+            };
+
+            try {
+                await fetch('https://script.google.com/macros/s/AKfycbzGFKVPVus7IPAAHhxzFUtUDl8pQOU5pt9x0wxIqhuPxS4R1RZ48r2bt5yqOQD2VS-64w/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                alert('접수되었습니다! 서비스 출시 시 연락드리겠습니다.');
+                
+                document.getElementById('signupForm').reset();
+                document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+                document.querySelectorAll('.contact-option').forEach(opt => opt.classList.remove('selected'));
+                emailInputSection.classList.remove('show');
+                phoneInputSection.classList.remove('show');
+                emailConfirmed.classList.remove('show');
+                phoneConfirmed.classList.remove('show');
+                emailWarning.classList.remove('show');
+                phoneWarning.classList.remove('show');
+                emailInput.disabled = false;
+                phoneInput.disabled = false;
+                
+                const confirmEmailBtn = document.getElementById('confirmEmailBtn');
+                const confirmPhoneBtn = document.getElementById('confirmPhoneBtn');
+                confirmEmailBtn.textContent = '확인';
+                confirmEmailBtn.classList.remove('edit-mode');
+                confirmPhoneBtn.textContent = '확인';
+                confirmPhoneBtn.classList.remove('edit-mode');
+                
+                contactConfirmed = false;
+
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 5000);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '사전 등록하기';
+            }
+        });
+    </script>
+</body>
+</html>
